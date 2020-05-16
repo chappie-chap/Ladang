@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Ladang</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intro1">Welcome to LADANG ( Learning about design graphic ), ladang adalah sebuah permainan untuk mengasah keterampilan desain grafis</string>
+    <string name="intro2">Disini kita akan belajar tentang design grapic bersama - sama jadi tetap santai dan selamat belajar</string>
+    <string name="skip"><![CDATA[Skip >>>]]></string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="exit_app">Keluar</string>
+    <string name="message_exit">Apakah Anda yakin ingin keluar ?</string>
+    <string name="batal">Batal</string>
+    <string name="ok">OK</string>
+    <string name="pemain">Pemain</string>
+    <string name="penduduk">Penduduk</string>
+    <string name="pendatang">Pendatang</string>
+    <string name="raja">Raja 0</string>
+    <string name="title">title</string>
+    <string name="masukkan_nama">Masukkan nama</string>
+    <string name="secret_word">Kata Rahasia</string>
+    <string name="player">Pemain</string>
+    <string name="player_minimum">Jumlah minimal pemain adalah 3 orang</string>
+    <string name="choose_one">Pilih yang akan dieliminasi</string>
+    <string name="start_string">Dimulai dari</string>
+    <string name="tebak_kata">Tebak kata</string>
+    <string name="kata_penduduk">Kata penduduk</string>
+    <string name="kata_pendatang">Kata pendatang</string>
+    <string name="waktu">Waktu</string>
+    <string name="timer">Timer</string>
+    <string name="kesempatan">Kesempatan</string>
+    <string name="skor">skor</string>
+    <string name="soal">Soal</string>
+</resources>
