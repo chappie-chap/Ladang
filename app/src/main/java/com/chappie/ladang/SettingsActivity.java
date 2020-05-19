@@ -2,11 +2,15 @@ package com.chappie.ladang;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Switch;
 
 import com.chappie.ladang.helper.StorePreference;
+import com.chappie.ladang.service.ServiceSound;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +52,25 @@ public class SettingsActivity extends AppCompatActivity {
     void switchSetting(Switch sw_settings, boolean isChecked){
         if(isChecked){
             Log.d("Settings: ",""+isChecked);
+            if (!isPlay()) {
+                startService(new Intent(getApplicationContext(), ServiceSound.class));
+            }
         }else {
+            if (isPlay()) {
+                stopService(new Intent(getApplicationContext(), ServiceSound.class));
+            }
             Log.d("Settings: ",""+isChecked);
         }
+    }
+
+    private boolean isPlay() {
+        ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (ServiceSound.class.getName().equals(serviceInfo.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
