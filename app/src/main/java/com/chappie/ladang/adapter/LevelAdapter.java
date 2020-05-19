@@ -46,13 +46,20 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(levelList.get(position).isPlay()){
+        if(levelList.get(position).isPlayed() && !levelList.get(position).isCanPlay()){
             holder.btnLevel.setEnabled(false);
-            holder.imgDisabled.setVisibility(View.VISIBLE);
+            holder.imgDisabled.setVisibility(View.INVISIBLE);
+            holder.imgChecklist.setVisibility(View.VISIBLE);
             Glide.with(context).load(levelList.get(position).getImgLevel()).into(holder.btnLevel);
-        }else {
+        }else if(levelList.get(position).isCanPlay()){
             holder.btnLevel.setEnabled(true);
             holder.imgDisabled.setVisibility(View.INVISIBLE);
+            holder.imgChecklist.setVisibility(View.INVISIBLE);
+            Glide.with(context).load(levelList.get(position).getImgLevel()).into(holder.btnLevel);
+        }else {
+            holder.btnLevel.setEnabled(false);
+            holder.imgDisabled.setVisibility(View.VISIBLE);
+            holder.imgChecklist.setVisibility(View.INVISIBLE);
             Glide.with(context).load(levelList.get(position).getImgLevel()).into(holder.btnLevel);
         }
         holder.btnLevel.setOnClickListener(v -> {
@@ -70,6 +77,8 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
         ImageButton btnLevel;
         @BindView(R.id.imgDisabled)
         ImageView imgDisabled;
+        @BindView(R.id.imgChecklist)
+        ImageView imgChecklist;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

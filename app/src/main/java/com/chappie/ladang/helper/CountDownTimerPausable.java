@@ -8,12 +8,12 @@ public abstract class CountDownTimerPausable {
     /**
      * Millis since epoch when alarm should stop.
      */
-    private final long mMillisInFuture;
+    private long mMillisInFuture;
 
     /**
      * The interval in millis that the user receives callbacks
      */
-    private final long mCountdownInterval;
+    private long mCountdownInterval;
 
     private long mStopTimeInFuture;
 
@@ -50,6 +50,29 @@ public abstract class CountDownTimerPausable {
      * @return
      */
     public synchronized final CountDownTimerPausable start() {
+        if (mMillisInFuture <= 0) {
+            onFinish();
+            return this;
+        }
+        mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
+        mHandler.sendMessage(mHandler.obtainMessage(MSG));
+        mCancelled = false;
+        mPaused = false;
+        return this;
+    }
+
+    /**
+     * @param millisInFuture The number of millis in the future from the call
+     *   to {@link #start()} until the countdown is done and {@link #onFinish()}
+     *   is called.
+     * @param countDownInterval The interval along the way to receive
+     *   {@link #onTick(long)} callbacks.
+     * Restart the countdown
+     * @return
+     */
+    public synchronized final CountDownTimerPausable restart(long millisInFuture, long countDownInterval){
+        mMillisInFuture = millisInFuture;
+        mCountdownInterval = countDownInterval;
         if (mMillisInFuture <= 0) {
             onFinish();
             return this;

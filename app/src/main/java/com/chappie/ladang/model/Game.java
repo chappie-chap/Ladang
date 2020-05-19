@@ -1,5 +1,7 @@
 package com.chappie.ladang.model;
 
+import android.os.Parcelable;
+
 public class Game {
 
     private String Name;

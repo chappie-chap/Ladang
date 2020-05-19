@@ -9,12 +9,22 @@
         android:id="@+id/btnLevel"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/tingkat_1"/>
+        android:background="@drawable/tingkat_1"
+        android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/imgDisabled"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="65dp"
         android:src="@drawable/rounded_black"/>
+
+    <ImageView
+        android:id="@+id/imgChecklist"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignEnd="@id/btnLevel"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_check_black_24dp" />
 
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.chappie.ladang.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,20 +16,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
-import com.chappie.ladang.GameActivity;
-import com.chappie.ladang.MainActivity;
-import com.chappie.ladang.PractectActivity;
 import com.chappie.ladang.R;
 import com.chappie.ladang.model.Game;
-import com.chappie.ladang.model.Word;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DialogWinner extends DialogFragment {
     @BindView(R.id.winner_bg)
@@ -49,8 +42,9 @@ public class DialogWinner extends DialogFragment {
     private int index;
     private OnItemClickCallback onItemClickCallback;
 
+
     public interface OnItemClickCallback{
-        void onItemClicked(ArrayList<Game> list);
+        void onItemClicked(ArrayList<Game> list, boolean isReplay);
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
@@ -107,7 +101,8 @@ public class DialogWinner extends DialogFragment {
                 gameList.get(i).setPoint(gameList.get(i).getPoint()+2);
             }
         }
-        winner_btnReplay.setOnClickListener(v-> onItemClickCallback.onItemClicked(gameList));
+        winner_btnReplay.setOnClickListener(v-> onItemClickCallback.onItemClicked(gameList,true));
+        winner_btnPraktik.setOnClickListener(v-> onItemClickCallback.onItemClicked(gameList,false));
 
         return view;
     }

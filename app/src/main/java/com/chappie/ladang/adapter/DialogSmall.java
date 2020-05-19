@@ -38,7 +38,7 @@ public class DialogSmall extends DialogFragment {
     TextView small_message;
     @BindView(R.id.small_btnOK)
     public ImageButton small_btnOK;
-    @BindView(R.id.small_close)
+    @BindView(R.id.small_btnClose)
     public ImageButton small_close;
     private String title,message;
 
@@ -66,8 +66,13 @@ public class DialogSmall extends DialogFragment {
         small_message.setText(message);
     }
 
-    @OnClick(R.id.small_close)
-    void Close(){
+    @OnClick(R.id.small_btnOK)
+    void btnOK(){
+        Objects.requireNonNull(getDialog()).cancel();
+    }
+
+    @OnClick(R.id.small_btnClose)
+    void btnClose(){
         Objects.requireNonNull(getDialog()).cancel();
     }
 }

@@ -3,8 +3,8 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:background="@android:color/transparent">
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@ android:background="@android:color/transparent">
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/small_close"
+        android:id="@+id/small_btnClose"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/close"

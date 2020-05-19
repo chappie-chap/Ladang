@@ -1,19 +1,18 @@
 package com.chappie.ladang;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chappie.ladang.adapter.DialogGetWord;
@@ -23,12 +22,12 @@ import com.chappie.ladang.adapter.DialogWinner;
 import com.chappie.ladang.adapter.RecyclerViewAdapter;
 import com.chappie.ladang.helper.ColumnQty;
 import com.chappie.ladang.helper.GridSpacing;
+import com.chappie.ladang.helper.StorePreference;
 import com.chappie.ladang.model.Game;
 import com.chappie.ladang.model.Word;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<Word> wordList;
     private int penduduk, pendatang, raja, sisaPenduduk, sisaPendatang, sisaRaja;
     private Boolean isPlayAgain;
-    private SharedPreferences pref;
+    private StorePreference pref;
 
     public int getPenduduk() {
         return penduduk;
@@ -114,14 +113,13 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
+        pref= new StorePreference(getApplicationContext());
         Glide.with(this).load(R.drawable.back).into(gameBack);
         tvEliminate.setVisibility(View.GONE);
         ColumnQty columnQty = new ColumnQty(GameActivity.this, R.layout.item_game);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(GameActivity.this, columnQty.calculateNoOfColumns());
         rv_Game.addItemDecoration(new GridSpacing(columnQty.calculateSpacing()));
         rv_Game.setLayoutManager(gridLayoutManager);
-        pref = getSharedPreferences("Game_Ladang", 0);
-        boolean check = pref.getBoolean("isOpenedBefore", false );
         setPenduduk(getIntent().getIntExtra(EXTRA_PENDUDUK, 0));
         setPendatang(getIntent().getIntExtra(EXTRA_PeNDATANG, 0));
         setRaja(getIntent().getIntExtra(EXTRA_RAJA, 0));
@@ -148,9 +146,6 @@ public class GameActivity extends AppCompatActivity {
                 dialogVote(i);
             }
         });
-        if(check){
-            Toast.makeText(getApplicationContext(),"Opened Before", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void dialogChoose(int i) {
@@ -241,19 +236,29 @@ public class GameActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         winner.show(fm,"Winner");
         fm.executePendingTransactions();
-        winner.setOnItemClickCallback(list -> {
-            winner.dismiss();
-            gameList = list;
-            setPlayAgain(true);
-            gameList.get(0).setJumlah(0);
-            initAgain();
-            rvAdapter.notifyDataSetChanged();
+        winner.setOnItemClickCallback((list, isReplay) -> {
+            if(isReplay){
+                winner.dismiss();
+                gameList = list;
+                setPlayAgain(true);
+                gameList.get(0).setJumlah(0);
+                initAgain();
+                rvAdapter.notifyDataSetChanged();
+            }else{
+                storePlayer(list);
+                Intent intent = new Intent(GameActivity.this, PracticeActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
-        winner.winner_btnPraktik.setOnClickListener(v -> {
-            Intent intent = new Intent(GameActivity.this, PractectActivity.class);
-            startActivity(intent);
-            finish();
-        });
+    }
+
+    private void storePlayer(ArrayList<Game> list) {
+        pref.setBoolean("isPlayerNull",false);
+        for (int x=1; x<=list.size(); x++){
+            pref.setString("Player"+x, list.get(x).getName());
+            pref.setInt("Point"+x, list.get(x).getPoint());
+        }
     }
 
     private void dialogGetWord(final int i) {
@@ -390,7 +395,10 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         DialogSmall small = new DialogSmall("Keluar", "Kamu yakin ingin keluar ?");
+        FragmentManager fm = getSupportFragmentManager();
         small.show(getSupportFragmentManager(),"Exit");
+        fm.executePendingTransactions();
+        small.small_btnOK.setOnClickListener(v -> super.onBackPressed());
 
     }
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" 
+    android:layout_gravity="center" 
+    android:orientation="vertical" 
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content" 
+    android:layout_margin="8dp" 
+    app:cardCornerRadius="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content">
+
+        <ProgressBar 
+            android:id="@+id/pb_Name" 
+            android:layout_width="match_parent" 
+            android:layout_height="40dp"
+            android:progressDrawable="@drawable/rounded_progress" 
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+        <TextView 
+            android:textSize="18sp" 
+            android:id="@+id/tv_Name" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_marginStart="12dp"
+            android:text="Role"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/pb_Name" 
+            app:layout_constraintStart_toStartOf="@+id/pb_Name" 
+            app:layout_constraintTop_toTopOf="@+id/pb_Name"/>
+
+        <TextView 
+            android:textSize="18sp" 
+            android:id="@+id/tv_pointName" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_marginEnd="12dp"
+            android:text="3" 
+            app:layout_constraintBottom_toBottomOf="@+id/pb_Name" 
+            app:layout_constraintEnd_toEndOf="@+id/pb_Name" 
+            app:layout_constraintTop_toTopOf="@+id/pb_Name"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

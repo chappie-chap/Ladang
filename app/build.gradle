@@ -56,4 +56,5 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     //JustifiedText
     implementation 'me.biubiubiu.justifytext:library:1.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

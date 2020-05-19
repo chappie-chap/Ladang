@@ -9,8 +9,8 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chappie.ladang.PractectActivity;
 import com.chappie.ladang.R;
+import com.chappie.ladang.fragment.PuzzleFragment;
 import com.chappie.ladang.model.Pieces;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class PuzzleAdapter extends RecyclerView.Adapter<PuzzleAdapter.DateViewHo
     public void onBindViewHolder( DateViewHolder holder, int position) {
         holder.imageView.setImageBitmap(piecesModelList.get(position).getOriginalResource());
         holder.imageView.setTag("" + piecesModelList.get(position).getpX() + "," + piecesModelList.get(position).getpY());
-        holder.imageView.setOnLongClickListener(new PractectActivity.MyClickListener());
+        holder.imageView.setOnLongClickListener(new PuzzleFragment.MyClickListener());
         animationmethod(holder,position);
     }
 

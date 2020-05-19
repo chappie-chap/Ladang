@@ -16,6 +16,10 @@ public class Quest {
     private boolean isCorrect5;
     private int imgPuzzle;
 
+    public Quest(String question) {
+        this.question = question;
+    }
+
     public Quest(String question, int imgPuzzle) {
         this.question = question;
         this.imgPuzzle = imgPuzzle;
