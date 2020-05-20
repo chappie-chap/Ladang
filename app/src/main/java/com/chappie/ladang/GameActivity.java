@@ -188,24 +188,36 @@ public class GameActivity extends AppCompatActivity {
         FragmentManager fm= getSupportFragmentManager();
         message.show(fm,"Eliminated");
         message.setOnItemClickCallback(sisa1 -> {
+            Log.d("Message: ", "sisaPenduduk: "+sisa1.get(0));
+            Log.d("Message: ", "sisaPendatang: "+sisa1.get(1));
+            Log.d("Message: ", "sisaRaja: "+sisa1.get(2));
+            setSisaPenduduk(sisa1.get(0));
+            setSisaPendatang(sisa1.get(1));
+            setSisaRaja(sisa1.get(2));
             if (message.TAG.equals("Guest")) {
                 Log.d("Message: ","Guest");
                 String tebakan = message.message_edText.getText().toString().toLowerCase();
-                for(int x=0; x<gameList.size(); x++){
-                    if(gameList.get(x).getRole().equals("Penduduk")){
-                        if (gameList.get(x).getSecretWord().toLowerCase().trim().equals(tebakan)){
-                            gameList.get(x).setEliminate(true);
-                            message.eliminate();
-                        }else {
-                            message.dismiss();
-                            dialogWinner(3);
-                            Log.d("Message: ","Dialog Winner "+3);
+                if(message.message_lay2.getVisibility()== View.VISIBLE){
+                    for(int x=0; x<gameList.size(); x++){
+                        if(gameList.get(x).getRole().equals("Penduduk")){
+                            if (gameList.get(x).getSecretWord().toLowerCase().trim().equals(tebakan)){
+                                gameList.get(x).setEliminate(true);
+                                message.eliminate(true);
+                            }else {
+                                message.eliminate(false);
+                            }
                         }
+                    }
+                }else if( message.message_lay2.getVisibility()==View.GONE){
+                    message.dismiss();
+                    if (message.isTrue){
+                        dialogWinner(3);
                     }
                 }
             }else if(message.TAG.equals("Eliminated")) {
                 Log.d("Message: ","Eliminated");
                 if(sisa1.get(0) ==1){
+                    Log.d("Eliminated", "dialogEliminated: "+sisa1.get(0));
                     if(sisa1.get(1) !=0 && sisa1.get(2)!=0){
                         message.dismiss();
                         dialogWinner(4);
@@ -223,7 +235,11 @@ public class GameActivity extends AppCompatActivity {
                     message.dismiss();
                     dialogWinner(1);
                     Log.d("Message: ","Dialog Winner "+1);
+                }else if(sisa1.get(0) !=1){
+                    Log.d("Eliminated", "justEliminated: " + sisa1.get(0));
+                    message.dismiss();
                 }
+
             }else{
                 Log.d("Message: ","dismiss");
                 message.dismiss();
@@ -244,6 +260,7 @@ public class GameActivity extends AppCompatActivity {
                 gameList.get(0).setJumlah(0);
                 initAgain();
                 rvAdapter.notifyDataSetChanged();
+                storePlayer(list);
             }else{
                 storePlayer(list);
                 Intent intent = new Intent(GameActivity.this, PracticeActivity.class);
@@ -255,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void storePlayer(ArrayList<Game> list) {
         pref.setBoolean("isPlayerNull",false);
-        for (int x=1; x<=list.size(); x++){
+        for (int x=0; x<list.size(); x++){
             pref.setString("Player"+x, list.get(x).getName());
             pref.setInt("Point"+x, list.get(x).getPoint());
         }
@@ -311,7 +328,7 @@ public class GameActivity extends AppCompatActivity {
             if (x< i1+i2+i3){
                 if(x<i1) gameList.add(new Game("Player","Penduduk", arrayList.get(0),false,false,0));
                 else if(x<i1+i2) gameList.add(new Game("Player","Pendatang", arrayList.get(1),false,false,0));
-                else if(x<i1+i2+i3) gameList.add(new Game("Player","Raja", "^^",false,false,0));
+                else if(x<i1+i2+i3) gameList.add(new Game("Player","Raja", ":)",false,false,0));
                 x++;
             }else{
                 Collections.shuffle(gameList);
@@ -364,7 +381,7 @@ public class GameActivity extends AppCompatActivity {
                     gameList.get(x).setRole("Raja");
                     gameList.get(x).setEliminate(false);
                     gameList.get(x).setReady(false);
-                    gameList.get(x).setSecretWord("^^");
+                    gameList.get(x).setSecretWord(":)");
                 }
                 x++;
             }else{
@@ -386,7 +403,7 @@ public class GameActivity extends AppCompatActivity {
         wordList.add(new Word(false,"fotografi", "lukisan"));
         wordList.add(new Word(false,"kartun", "karikatur"));
         wordList.add(new Word(false,"proporsi", "komposisi"));
-        wordList.add(new Word(false,"kubitis", "silindris"));
+        wordList.add(new Word(false,"kubistis", "silindris"));
         wordList.add(new Word(false,"linier", "arsir"));
         wordList.add(new Word(false,"perspektif 1 titik", "perspektif 2 titik"));
         Collections.shuffle(wordList);

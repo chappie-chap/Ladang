@@ -33,7 +33,7 @@
         android:layout_marginVertical="16dp"
         android:scaleType="fitXY"
         android:src="@drawable/bg_level"
-        app:layout_constraintBottom_toTopOf="@id/btnOK"
+        app:layout_constraintBottom_toTopOf="@id/score_btnOK"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -48,28 +48,39 @@
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
     <ImageView
-        android:id="@+id/btnOK"
+        android:id="@+id/score_btnOK"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:scaleType="fitXY"
         android:src="@drawable/ok"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintEnd_toStartOf="@+id/score_btnDelete"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/btnDelete"
+        android:id="@+id/score_btnDelete"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:scaleType="fitXY"
         android:src="@drawable/delete"
-        app:layout_constraintBottom_toBottomOf="@id/btnOK"
+        app:layout_constraintBottom_toBottomOf="@id/score_btnOK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnOK"
-        app:layout_constraintTop_toTopOf="@+id/btnOK" />
+        app:layout_constraintStart_toEndOf="@+id/score_btnOK"
+        app:layout_constraintTop_toTopOf="@+id/score_btnOK" />
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak ada Player"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

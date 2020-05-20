@@ -22,6 +22,7 @@ import androidx.fragment.app.DialogFragment;
 import com.bumptech.glide.Glide;
 import com.chappie.ladang.GameActivity;
 import com.chappie.ladang.R;
+import com.chappie.ladang.RuleActivity;
 
 import java.util.Objects;
 
@@ -189,6 +190,8 @@ public class DialogsPlay extends DialogFragment {
 
     @OnClick(R.id.sPlayer_Aturan)
     void setsPlayerAturan(){
-        Toast.makeText(getContext(),"Aturan Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), RuleActivity.class);
+        Objects.requireNonNull(getActivity()).startActivity(intent);
+        dismiss();
     }
 }

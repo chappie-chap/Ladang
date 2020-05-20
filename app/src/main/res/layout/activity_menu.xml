@@ -57,6 +57,7 @@
             android:id="@+id/menu_btnPlay"
             android:layout_width="300dp"
             android:layout_height="300dp"
+            android:layout_marginStart="16dp"
             android:layout_alignParentStart="true"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
@@ -66,13 +67,15 @@
 
         <ImageButton
             android:id="@+id/menu_btnStudy"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_alignParentStart="true"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
             android:src="@drawable/materi"
+            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -87,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33105335" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <LinearLayout
             android:layout_width="match_parent"

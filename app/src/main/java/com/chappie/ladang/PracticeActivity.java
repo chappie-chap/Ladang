@@ -1,18 +1,18 @@
 package com.chappie.ladang;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chappie.ladang.adapter.DialogSmall;
 import com.chappie.ladang.adapter.LevelAdapter;
@@ -103,6 +103,8 @@ public class PracticeActivity extends AppCompatActivity {
                     break;
             }
         });
+
+        imgBack.setOnClickListener(v -> onBackPressed());
     }
 
     public void replaceFragment(Fragment fragment, String tag) {
@@ -135,11 +137,11 @@ public class PracticeActivity extends AppCompatActivity {
         quests.add(new Quest("Media apa saja yang digunakan untuk membuat gambar sketsa ? (+4) (kalau benar semua)", R.drawable.kertas, true, R.drawable.pensil, true, R.drawable.rapido, true, R.drawable.tipex, false, R.drawable.printer, false));
         quests.add(new Quest("Media apa saja yang digunakan untuk membuat gambar ilustrasi manual ? (+4) (kalau benar semua)", R.drawable.drawing_pen, true, R.drawable.kamera, false, R.drawable.komputer, false, R.drawable.penggaris, true, R.drawable.pensil, true));
         quests.add(new Quest("Media apa saja yang digunakan untuk membuat gambar ilustrasi digital ? (+4) (kalau benar semua)", R.drawable.drawing_pad, true, R.drawable.fd, false, R.drawable.komputer, true, R.drawable.usb, false, R.drawable.scan, true));
-        quests.add(new Quest("Media apa saja yang digunakan untuk membuat gambar ilustrasi digital ? (+4) (kalau benar semua)", R.drawable.acrylic, true, R.drawable.water_color, true, R.drawable.lem, false, R.drawable.pensil, true, R.drawable.scan, true));
+        quests.add(new Quest("Media apa saja yang digunakan untuk membuat gambar bentuk ? (+4) (kalau benar semua)", R.drawable.acrylic, true, R.drawable.water_color, true, R.drawable.lem, false, R.drawable.pensil, true, R.drawable.scan, true));
         quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar sketsa (+10)", R.drawable.puzzle1));
-        quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar sketsa (+10)", R.drawable.puzzle2));
-        quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar sketsa (+10)", R.drawable.puzzle3));
-        quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar sketsa (+10)", R.drawable.puzzle4));
+        quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar bentuk (+10)", R.drawable.puzzle2));
+        quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar ilustrasi (+10)", R.drawable.puzzle3));
+        quests.add(new Quest("Susunlah gambar dibawah ini sehingga terlihat seperti gambar perspektif (+10)", R.drawable.puzzle4));
         quests.add(new Quest("Buatlah sebuah gambar Ilustrasi (+10)"));
         quests.add(new Quest("Buatlah sebuah gambar perspektif (+10)"));
     }
@@ -151,7 +153,7 @@ public class PracticeActivity extends AppCompatActivity {
         if (count > 0) {
             getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         } else {
-            DialogSmall small = new DialogSmall("Keluar", "Yakin inngin kembali ke halaman menu ?");
+            DialogSmall small = new DialogSmall("Keluar", "Yakin ingin kembali ke halaman menu ?");
             FragmentManager fm = getSupportFragmentManager();
             small.show(fm, "Exit");
             fm.executePendingTransactions();

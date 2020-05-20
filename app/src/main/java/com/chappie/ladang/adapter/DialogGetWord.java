@@ -41,6 +41,8 @@ public class DialogGetWord extends DialogFragment {
     ImageView bg_Text;
     @BindView(R.id.getWord_secretWord)
     TextView secretWord;
+    @BindView(R.id.getWord_role)
+    TextView role;
     @BindView(R.id.getWord_btnGW)
     public ImageButton btnGetWord;
     private int index;
@@ -73,6 +75,8 @@ public class DialogGetWord extends DialogFragment {
         Glide.with(view.getContext()).load(R.drawable.ava_1).into(imgAva);
         Glide.with(view.getContext()).load(R.drawable.get_word).into(btnGetWord);
         secretWord.setVisibility(View.GONE);
+        role.setVisibility(View.GONE);
+        role.setText(gameList.get(index).getRole());
         bg_Text.setVisibility(View.GONE);
         edtName.setVisibility(View.VISIBLE);
         if(gameList.get(index).getName().trim().equals("Player")){
@@ -101,6 +105,12 @@ public class DialogGetWord extends DialogFragment {
                 edtName.setEnabled(true);
                 Log.d("DialogWord: ", "equals player or zero");
                 return;
+            }else if(lowerCase.length()>=8){
+                Glide.with(context).load(R.drawable.get_word).into(btnGetWord);
+                btnGetWord.setContentDescription("Dapatkan");
+                edtName.setEnabled(true);
+                Toast.makeText(context,"nickname makasimal 8 karakter",Toast.LENGTH_SHORT).show();
+                return;
             }
             int i = 0;
             while (true) {
@@ -119,6 +129,7 @@ public class DialogGetWord extends DialogFragment {
                 edtName.setVisibility(View.GONE);
                 bg_Text.setVisibility(View.VISIBLE);
                 secretWord.setVisibility(View.VISIBLE);
+                role.setVisibility(View.VISIBLE);
                 setRole(index);
                 gameList.get(index).setReady(true);
                 gameList.get(index).setName(edtName.getText().toString().trim());
@@ -131,6 +142,7 @@ public class DialogGetWord extends DialogFragment {
             edtName.setVisibility(View.GONE);
             bg_Text.setVisibility(View.VISIBLE);
             secretWord.setVisibility(View.VISIBLE);
+            role.setVisibility(View.VISIBLE);
             setRole(index);
             gameList.get(index).setReady(true);
             gameList.get(index).setName(edtName.getText().toString().trim());

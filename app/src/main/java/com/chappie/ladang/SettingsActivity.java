@@ -41,11 +41,13 @@ public class SettingsActivity extends AppCompatActivity {
     @OnClick(R.id.delete_settings)
     void delete(){
         boolean first = pref.getBooleanValue("HasPlayed");
+        boolean sound = pref.getBooleanValue("SwitchSound");
         pref.clearEditor();
         if(first){
             pref.setBoolean("FirstPlay", true);
+        }else if(sound){
+            pref.setBoolean("SwitchSound",true);
         }
-        pref.setBoolean("SwitchSound",true);
     }
 
     @OnCheckedChanged(R.id.sw_settings)

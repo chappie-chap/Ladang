@@ -55,7 +55,7 @@ public class MenuActivity extends AppCompatActivity implements Serializable {
 
         if (!pref.getBooleanValue("isPlayerNull")) {
             Log.d("Menu: ",""+pref.getStringValue("Player"+1));
-            for (int i = 1; i <= 8; i++) {
+            for (int i = 0; i < 8; i++) {
                 if (pref.getStringValue("Player"+i) != null) {
                     Log.d("Menu: ","Add pref");
                     player = pref.getStringValue("Player"+i);
@@ -82,26 +82,22 @@ public class MenuActivity extends AppCompatActivity implements Serializable {
 
     @OnClick(R.id.menu_btnStudy)
     void setMenu_btnStudy() {
-        Toast.makeText(getApplicationContext(), "Button Study Clicked", Toast.LENGTH_SHORT).show();
         IntentActivity(StudyActivity.class);
 
     }
 
     @OnClick(R.id.menu_btnSetting)
     void setMenu_btnSetting() {
-        Toast.makeText(getApplicationContext(), "Button Setting Clicked", Toast.LENGTH_SHORT).show();
         IntentActivity(SettingsActivity.class);
     }
 
     @OnClick(R.id.menu_btnAturan)
     void setMenu_btnAturan() {
-        Toast.makeText(getApplicationContext(), "Button Aturan Clicked", Toast.LENGTH_SHORT).show();
         IntentActivity(RuleActivity.class);
     }
 
     @OnClick(R.id.menu_btnSkor)
     void setMenu_btnSkor() {
-        Toast.makeText(getApplicationContext(), "Button Skor Clicked", Toast.LENGTH_SHORT).show();
         if(gameList.isEmpty()) {
             Log.d("Menu: ","gameList Null");
             IntentActivity(ScoreActivity.class);
@@ -116,7 +112,7 @@ public class MenuActivity extends AppCompatActivity implements Serializable {
 
     @OnClick(R.id.menu_btnInfo)
     void setMenu_btnInfo() {
-        Toast.makeText(getApplicationContext(), "Button Info Clicked", Toast.LENGTH_SHORT).show();
+        IntentActivity(InfoActivity.class);
     }
 
     private void IntentActivity(Class cls) {

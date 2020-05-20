@@ -29,7 +29,6 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DialogMessage extends DialogFragment {
     @BindView(R.id.message_bg)
@@ -37,7 +36,7 @@ public class DialogMessage extends DialogFragment {
     @BindView(R.id.message_1)
     TextView message_1;
     @BindView(R.id.message_Ava)
-    CircleImageView message_ava;
+    ImageView message_ava;
     @BindView(R.id.message_2)
     TextView message_2;
     @BindView(R.id.message_edText)
@@ -45,9 +44,9 @@ public class DialogMessage extends DialogFragment {
     @BindView(R.id.message_btnOK)
     public ImageButton message_btnOK;
     @BindView(R.id.message_lay1)
-    LinearLayout message_lay1;
+    public LinearLayout message_lay1;
     @BindView(R.id.message_lay2)
-    LinearLayout message_lay2;
+    public LinearLayout message_lay2;
     public String TAG;
     private ArrayList<Game> gameList;
     private int index;
@@ -55,6 +54,7 @@ public class DialogMessage extends DialogFragment {
     private View v;
     private ArrayList<Integer> sisa= new ArrayList<>();
     private OnItemClickCallback onItemClickCallback;
+    public boolean isTrue;
 
     public interface OnItemClickCallback{
         void onItemClicked(ArrayList<Integer> sisa);
@@ -92,10 +92,10 @@ public class DialogMessage extends DialogFragment {
         ButterKnife.bind(this, view);
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         getDialog().setCanceledOnTouchOutside(false);
-        init();
         Glide.with(view.getContext()).load(R.drawable.border).into(message_bg);
         Glide.with(view.getContext()).load(R.drawable.ava_1).into(message_ava);
         Glide.with(view.getContext()).load(R.drawable.ok).into(message_btnOK);
+        init();
 
         message_btnOK.setOnClickListener(v1 -> {
             if(sisa.isEmpty()){
@@ -129,31 +129,19 @@ public class DialogMessage extends DialogFragment {
                 int drawable;
                 if (gameList.get(index).getRole().equals("Penduduk")) {
                     Log.d("Message: ", "Penduduk");
-                    sisa.set(0, sisa.get(0) - 1);
-                    if (sisa.get(0) > 1) {
-                        role = gameList.get(index).getRole();
-                        message = "Hmmm, Kamu salah menebak";
-                        drawable = R.drawable.aturan_2;
-                    } else {
-                        role = gameList.get(index).getRole();
-                        message = "Hmmm, Kamu salah menebak";
-                        drawable = R.drawable.aturan_2;
-                    }
+                    sisa.set(0, (sisa.get(0) - 1));
+                    role = gameList.get(index).getRole();
+                    message = "Hmmm, Kamu salah menebak";
+                    drawable = R.drawable.aturan_2;
                 } else if (gameList.get(index).getRole().equals("Pendatang")) {
                     Log.d("Message: ", "Pendatang");
-                    sisa.set(1, sisa.get(1) - 1);
-                    if (sisa.get(1) != 0) {
-                        role = gameList.get(index).getRole();
-                        message = "Yeaay, Kamu kamu berhasil menebak";
-                        drawable = R.drawable.aturan_3;
-                    } else {
-                        role = gameList.get(index).getRole();
-                        message = "Yeaay, Kamu kamu berhasil menebak";
-                        drawable = R.drawable.aturan_3;
-                    }
+                    sisa.set(1, (sisa.get(1) - 1));
+                    role = gameList.get(index).getRole();
+                    message = "Yeaay, Kamu kamu berhasil menebak";
+                    drawable = R.drawable.aturan_3;
                 } else {
                     Log.d("Message: ", "Guest");
-                    sisa.set(2, sisa.get(2) - 1);
+                    sisa.set(2, (sisa.get(2) - 1));
                     if (sisa.get(2) != 0) {
                         TAG = "Guest";
                         init();
@@ -164,17 +152,18 @@ public class DialogMessage extends DialogFragment {
                         return;
                     }
                 }
+                Glide.with(v.getContext()).load(drawable).into(message_ava);
+                Glide.with(v.getContext()).load(drawable).into(holder.crcGrid);
                 message_lay1.setVisibility(View.VISIBLE);
                 message_lay2.setVisibility(View.VISIBLE);
                 message_1.setVisibility(View.VISIBLE);
                 message_2.setVisibility(View.VISIBLE);
                 message_edText.setVisibility(View.GONE);
-                Glide.with(v.getContext()).load(drawable).into(message_ava);
-                Glide.with(v.getContext()).load(drawable).into(holder.crcGrid);
                 message_1.setText(message);
                 message_2.setText(role);
                 break;
             case "Guest":
+                holder.item_card.setEnabled(false);
                 message_lay1.setVisibility(View.GONE);
                 message_lay2.setVisibility(View.VISIBLE);
                 message_1.setVisibility(View.GONE);
@@ -190,10 +179,19 @@ public class DialogMessage extends DialogFragment {
     }
 
     @SuppressLint("SetTextI18n")
-    public void eliminate(){
+    public void eliminate(boolean bool){
+        if(bool){
             message_lay2.setVisibility(View.GONE);
             message_lay1.setVisibility(View.VISIBLE);
             message_1.setVisibility(View.VISIBLE);
-            message_1.setText("Sorry ya! Tebakan kamu salah.");
+            message_1.setText("Selamat, Tebakan kamu benar!");
+            isTrue=true;
+        }else {
+            isTrue=false;
+            message_lay2.setVisibility(View.GONE);
+            message_lay1.setVisibility(View.VISIBLE);
+            message_1.setVisibility(View.VISIBLE);
+            message_1.setText("Sorry ya, Tebakan kamu salah!");
+        }
     }
 }

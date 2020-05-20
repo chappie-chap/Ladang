@@ -92,13 +92,13 @@ public class DialogWinner extends DialogFragment {
             if(!gameList.get(i).getRole().equals("Penduduk") || index!=1){
                 if(!gameList.get(i).getRole().equals("Pendatang")|| !(index ==2 || index ==4)){
                     if (gameList.get(i).getRole().equals("Raja") && ((index ==3 || index ==4) && !gameList.get(i).isEliminate())){
-                        gameList.get(i).setPoint(gameList.get(i).getPoint()+10);
+                        gameList.get(i).setPoint(gameList.get(i).getPoint()+30);
                     }
                 }else if(!gameList.get(i).isEliminate()){
-                    gameList.get(i).setPoint(gameList.get(i).getPoint()+6);
+                    gameList.get(i).setPoint(gameList.get(i).getPoint()+25);
                 }
             }else if(!gameList.get(i).isEliminate()){
-                gameList.get(i).setPoint(gameList.get(i).getPoint()+2);
+                gameList.get(i).setPoint(gameList.get(i).getPoint()+25);
             }
         }
         winner_btnReplay.setOnClickListener(v-> onItemClickCallback.onItemClicked(gameList,true));
